@@ -1,0 +1,5 @@
+package com.gd0t.gd0t.repository;
+
+public interface PostRepository {
+
+}

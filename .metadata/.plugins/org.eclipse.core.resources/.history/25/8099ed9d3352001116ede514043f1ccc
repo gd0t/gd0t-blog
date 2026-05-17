@@ -1,0 +1,39 @@
+package com.gd0t.gd0t.controller;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.gd0t.gd0t.model.Post;
+import com.gd0t.gd0t.service.PostService;
+
+@Controller
+public class BlogController {
+	
+	private final PostService postService;
+	
+	// Dependency Injection -> Spring gives us the Service
+	public BlogController(PostService postService) {
+		this.postService = postService;
+	}
+	
+	@GetMapping("/")
+	public String homePage(Model model) {
+		
+		// 1. Fetch all posts from the database using the post service
+		List<Post> posts = postService.getAllPosts();
+		
+		model.addAttribute("posts", posts);
+		
+		// Returning the name of the HTML file I want to render (without the .html extension)
+		return "index";
+	}
+	
+	@PostMapping("/new")
+	public String showCreateForm(Model model) {
+		// We pass a completely empty, new Post object to the HTML form 
+	}
+}

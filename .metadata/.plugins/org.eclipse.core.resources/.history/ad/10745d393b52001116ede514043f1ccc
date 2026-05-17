@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>root@javadev:~$</title>
+    
+    <!-- Bootstrap CSS for layout -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Hacker Theme CSS Overrides -->
+    <style>
+        /* Base Terminal Styling */
+        body {
+            background-color: #050505;
+            color: #00FF41; /* Classic Matrix Green */
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Override standard text colors */
+        .text-dark, .text-muted, .text-secondary {
+            color: #008F11 !important; /* Darker green for secondary text */
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #000000 !important;
+            border-bottom: 1px solid #00FF41;
+        }
+        .navbar-brand, .nav-link {
+            color: #00FF41 !important;
+            font-weight: bold;
+        }
+        
+        /* Links and Hover Effects */
+        a {
+            color: #00FF41;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #00FF41;
+            text-shadow: 0 0 8px #00FF41; /* Neon glow effect */
+        }
+
+        /* Card (Container) Styling */
+        .card {
+            background-color: #0A0A0A;
+            border: 1px solid #008F11;
+            border-radius: 0; /* Remove rounded corners for blocky feel */
+        }
+        
+        /* Custom Buttons */
+        .btn-primary, .btn-outline-light, .btn-outline-dark {
+            background-color: transparent;
+            color: #00FF41;
+            border: 1px solid #00FF41;
+            border-radius: 0;
+            font-weight: bold;
+        }
+        .btn-primary:hover, .btn-outline-light:hover, .btn-outline-dark:hover {
+            background-color: #00FF41;
+            color: #000000;
+            box-shadow: 0 0 10px #00FF41;
+        }
+
+        /* Terminal Prompt styling for headers */
+        .prompt::before {
+            content: "root@javadev:~# ";
+            color: #008F11;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg mb-4">
+        <div class="container">
+            <a class="navbar-brand prompt" href="/">_blog</a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list" style="color: #00FF41; font-size: 1.5rem;"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">~/home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">~/whoami</a>
+                    </li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <a class="btn btn-primary btn-sm" th:href="@{/new}">
+                            > sudo write_post
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Grid -->
+    <div class="container">
+        <div class="row">
+            
+            <!-- Left Column: Blog Posts -->
+            <div class="col-lg-8">
+                <h2 class="mb-4 border-bottom border-success pb-2 prompt">cat latest_articles.txt</h2>
+
+                <!-- Empty State -->
+                <div th:if="${#lists.isEmpty(posts)}" class="card mb-4 p-3 border-danger text-danger">
+                    Error 404: No blog posts found in database.
+                </div>
+
+                <!-- Blog Post Cards -->
+                <div th:each="post : ${posts}" class="card mb-4">
+                    <div class="card-header border-bottom border-success pb-1 pt-2 bg-transparent">
+                        <h4 class="card-title fw-bold m-0" th:text="${post.title}">Title</h4>
+                        <small class="text-muted">
+                            <i class="bi bi-terminal"></i> timestamp: <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}">Date</span>
+                        </small>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" th:text="${post.content}">Content goes here...</p>
+                        <a href="#" class="fw-bold">> execute read_more.sh</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Sidebar / About Me -->
+            <div class="col-lg-4">
+                
+                <!-- About Me Card -->
+                <div class="card mb-4" id="about">
+                    <div class="card-header border-bottom border-success prompt bg-transparent">
+                        whoami
+                    </div>
+                    <div class="card-body">
+                        <!-- ASCII Art style avatar placeholder -->
+                        <pre class="text-center mb-3" style="font-size: 0.6rem; color: #008F11;">
+  .----.
+ /  ..  \
+|   \/   |
+ \      /
+  `----'
+                        </pre>
+                        <p class="card-text small">
+                            > ACCESS GRANTED.<br>
+                            > I am a backend Java developer exploring the web layer.<br>
+                            > System built via Spring Boot & Thymeleaf.
+                        </p>
+                        <div class="d-flex flex-column gap-2 mt-3">
+                            <a href="#" class="btn btn-outline-dark btn-sm text-start">> ping github.com</a>
+                            <a href="#" class="btn btn-outline-dark btn-sm text-start">> ssh linkedin.com</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+package com.gd0t.gd0t.bootstrap;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class DataLoader implements CommandLineRunner {
+
+}

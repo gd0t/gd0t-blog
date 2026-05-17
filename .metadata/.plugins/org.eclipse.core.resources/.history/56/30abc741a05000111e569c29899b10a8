@@ -1,0 +1,6 @@
+package com.gd0t.gd0t.model;
+
+@Entity
+public class Post {
+
+}

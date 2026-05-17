@@ -1,0 +1,26 @@
+package com.gd0t.gd0t.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.gd0t.gd0t.service.PostService;
+
+import ch.qos.logback.core.model.Model;
+
+@Controller
+public class BlogController {
+	
+	private final PostService postService;
+	
+	// Dependency Injection -> Spring gives us the Service
+	public BlogController(PostService postService) {
+		this.postService = postService;
+	}
+	
+	@GetMapping("/")
+	public String homePage(Model model) {
+		
+		// 1. Fetch all posts from the database using the post service
+		var posts = postService.getAllPosts();
+	}
+}
