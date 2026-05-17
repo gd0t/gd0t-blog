@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd0t.gd0t.model.Post;
 import com.gd0t.gd0t.service.PostService;
@@ -29,5 +31,20 @@ public class BlogController {
 		
 		// Returning the name of the HTML file I want to render (without the .html extension)
 		return "index";
+	}
+	
+	@GetMapping("/new")
+	public String showCreateForm(Model model) {
+		// I pass a completely empty, new Post object to the HTML form, so I can render the form
+		model.addAttribute("post", new Post());
+		return "create-post";
+	}
+	
+	@PostMapping("/new")
+	public String createPost(@ModelAttribute("post") Post post) {
+		postService.savePost(post);
+		
+		// tells the browser to navigate back to the home page
+		return "redirect:/";
 	}
 }
