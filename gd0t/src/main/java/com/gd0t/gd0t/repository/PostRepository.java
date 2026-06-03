@@ -10,6 +10,5 @@ import com.gd0t.gd0t.model.Post;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 	
-	// Still no need to write code
-	// JpaRepository contains save(), findById(), findAll(), etc.
+
 }
