@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- We add the sec namespace here for Spring Security -->
+<!-- Adding the thymeleaf template engine and spring-security plugin -->
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,6 @@
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <!-- Link to our new external CSS file! -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
@@ -24,12 +23,10 @@
                     <li class="nav-item"><a class="nav-link" href="/">~/home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">~/whoami</a></li>
                     
-                    <!-- MAGIC HAPPENS HERE: sec:authorize only renders this <li> if the user is logged in! -->
                     <li class="nav-item ms-lg-3 mt-2 mt-lg-0" sec:authorize="isAuthenticated()">
                         <a class="btn btn-primary btn-sm" th:href="@{/new}">> sudo write_post</a>
                     </li>
                     
-                    <!-- Optional: A logout button -->
                     <li class="nav-item ms-lg-3 mt-2 mt-lg-0" sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post" class="d-inline">
                             <button type="submit" class="btn btn-outline-dark btn-sm">> exit</button>
@@ -40,9 +37,10 @@
         </div>
     </nav>
 
-    <!-- Content... (Same as before, but with updated Read More link) -->
     <div class="container">
         <div class="row">
+        
+        	<!-- The posts take up 8 columns -->
             <div class="col-lg-8">
                 <h2 class="mb-4 prompt">cat latest_articles.txt</h2>
                 <div th:each="post : ${posts}" class="card mb-4">
@@ -58,7 +56,8 @@
                     </div>
                 </div>
             </div>
-            <!-- ... Keep your existing About Me column here ... -->
+            
+            <!-- about me takes up to 4 columns -->
             <div class="col-lg-4">
                 
                 <!-- About Me Card -->
@@ -67,13 +66,9 @@
                         whoami
                     </div>
                     <div class="card-body">
-                        <!-- ASCII Art style avatar placeholder -->
+                        
                         <pre class="text-center mb-3" style="font-size: 0.6rem; color: #008F11;">
-  .----.
- /  ..  \
-|   \/   |
- \      /
-  `----'
+ 							
                         </pre>
                         <p class="card-text small">
                             > ACCESS GRANTED.<br>
@@ -85,6 +80,7 @@
                             <a href="#" class="btn btn-outline-dark btn-sm text-start">> ssh linkedin.com</a>
                         </div>
                     </div>
+                </div>
                 </div>
         </div>
     </div>

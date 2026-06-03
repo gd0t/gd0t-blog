@@ -1,0 +1,9 @@
+package com.gd0t.gd0t.config;
+
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+}

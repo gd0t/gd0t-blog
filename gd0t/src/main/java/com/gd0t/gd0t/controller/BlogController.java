@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd0t.gd0t.model.Post;
@@ -46,5 +47,14 @@ public class BlogController {
 		
 		// tells the browser to navigate back to the home page
 		return "redirect:/";
+	}
+	
+	@GetMapping("/post/{id}")
+	public String viewSinglePost(@PathVariable Long id, Model model) {
+		Post post = postService.getPostById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + id));
+		
+		model.addAttribute("post", post);
+		return "post";
 	}
 }
