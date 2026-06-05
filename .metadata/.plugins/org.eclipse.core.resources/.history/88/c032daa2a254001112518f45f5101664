@@ -1,6 +1,0 @@
-package com.gd0t.gd0t.config;
-
-@Configuration
-public class SecurityConfig {
-
-}

@@ -46,7 +46,6 @@ a {
 
 a:hover {
     color: #0a58ca;
-    text-decoration: underline;
 }
 
 code {
@@ -170,3 +169,8 @@ input[type="text"]:focus, textarea:focus, .form-control:focus {
 .card {
 	width: 55em;
 }
+
+.delete-button:hover {
+	color: #fff;
+}
+

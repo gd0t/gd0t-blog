@@ -1,9 +1,0 @@
-package com.gd0t.gd0t.model;
-
-import jakarta.persistence.Entity;
-
-@Entity
-@Table(name = "posts")
-public class Post {
-
-}

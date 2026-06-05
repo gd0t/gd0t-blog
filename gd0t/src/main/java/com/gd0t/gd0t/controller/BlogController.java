@@ -1,6 +1,7 @@
 package com.gd0t.gd0t.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,5 +57,34 @@ public class BlogController {
 		
 		model.addAttribute("post", post);
 		return "post";
+	}
+	
+	@GetMapping("/post/{id}/edit")
+	public String showEditForm(@PathVariable Long id, Model model) {
+		Post post = postService.getPostById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + id));
+		
+		model.addAttribute("post", post);
+		return "edit-post";
+	}
+	
+	@PostMapping("/post/{id}/edit")
+	public String updatePost(@PathVariable Long id, @ModelAttribute("post") Post updatedPost) {
+		Post postToEdit = postService.getPostById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + id));
+		
+		postToEdit.setTitle(updatedPost.getTitle());
+		postToEdit.setContent(updatedPost.getContent());
+		
+		postService.savePost(postToEdit);
+		
+		return "redirect:/post/" + id;
+	}
+	
+	@PostMapping("/post/{id}/delete")
+	public String deletePost(@PathVariable Long id) {
+		postService.deletePost(id);
+		
+		return "redirect:/";
 	}
 }
